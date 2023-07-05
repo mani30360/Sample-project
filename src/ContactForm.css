@@ -1,0 +1,98 @@
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+.success-message {
+    color: green;
+    margin-top: 10px;
+}
+
+.invalid-feedback {
+    color: red;
+}
+
+
+
+
+
+.text-center {
+    text-align: center !important;
+}
+
+.image-container {
+    margin-top: 50px;
+}
+
+.container1 {
+    text-align: center;
+
+}
+
+
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.mani {
+    float: none;
+    margin: 0 auto;
+    width: 550px;
+    vertical-align: middle
+}
+
+.header {
+
+    border: 1px solid #edf1f1;
+    padding: 0px;
+    margin: 0px;
+    border-radius: 45px;
+    text-align: center;
+    background-color: rgb(108, 108, 209);
+    color: #f1f1f1;
+    margin-top: 10px;
+}
+
+.Box {
+    display: block;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 0px;
+    background-color: #dac7c7;
+
+    padding: 10px;
+    margin: 10px 0px 0px 0;
+    padding-left: 20px;
+
+
+
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.center {
+    text-align: center;
+}
+
+.Raju {
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 20px;
+
+}
+
+.container {
+    text-align: center;
+    margin-top: 30px;
+
+
+}
