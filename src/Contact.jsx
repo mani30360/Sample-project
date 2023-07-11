@@ -1,58 +1,56 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './ContactForm.css';
 
-class ContactForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      phoneNumber: '',
-      errors: {
+const ContactForm = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [errors, setErrors] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: ''
+  });
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    if (name === 'firstName') {
+      setFirstName(value);
+    } else if (name === 'lastName') {
+      setLastName(value);
+    } else if (name === 'email') {
+      setEmail(value);
+    } else if (name === 'phoneNumber') {
+      setPhoneNumber(value);
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (validateForm()) {
+      // Form submission logic goes here (e.g., API call, etc.)
+      console.log('Form submitted successfully!');
+      setSuccessMessage('Form submitted successfully!');
+      setFirstName('');
+      setLastName('');
+      setEmail('');
+      setPhoneNumber('');
+      setErrors({
         firstName: '',
         lastName: '',
         email: '',
         phoneNumber: ''
-      },
-      successMessage: ''
-    };
-  }
-
-  handleInputChange(event) {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-
-    if (this.validateForm()) {
-      // Form submission logic goes here (e.g., API call, etc.)
-      console.log('Form submitted successfully!');
-      this.setState({
-        successMessage: 'Form submitted successfully!',
-        firstName: '',
-        lastName: '',
-        email: '',
-        phoneNumber: '',
-        errors: {
-          firstName: '',
-          lastName: '',
-          email: '',
-          phoneNumber: ''
-        }
       });
     } else {
       console.log('Form has errors. Please fix them.');
-      this.setState({ successMessage: '' });
+      setSuccessMessage('');
     }
-  }
+  };
 
-  validateForm() {
-    const { firstName, lastName, email, phoneNumber } = this.state;
+  const validateForm = () => {
     const errors = {
       firstName: '',
       lastName: '',
@@ -87,76 +85,74 @@ class ContactForm extends Component {
       isValid = false;
     }
 
-    this.setState({ errors });
+    setErrors(errors);
     return isValid;
-  }
+  };
 
-  render() {
-    const { firstName, lastName, email, phoneNumber, errors, successMessage } = this.state;
-
-    return (
-      <div className="Raju">
-        <div className="row justify-content-center">
-          <div className="col-md-8">
-            <div><h1>Contact Form</h1></div>
-            <form onSubmit={this.handleSubmit.bind(this)}>
-              <div className="form-group">
-                <label>First Name:</label>
-                <input
-                  type="text"
-                  name="firstName"
-                  value={firstName}
-                  onChange={this.handleInputChange.bind(this)}
-                  className={errors.firstName ? 'form-control is-invalid' : 'form-control'}
-                />
-                {errors.firstName && <div className="invalid-feedback">{errors.firstName}</div>}
-              </div>
-
-              <div className="form-group">
-                <label>Last Name:</label>
-                <input
-                  type="text"
-                  name="lastName"
-                  value={lastName}
-                  onChange={this.handleInputChange.bind(this)}
-                  className={errors.lastName ? 'form-control is-invalid' : 'form-control'}
-                />
-                {errors.lastName && <div className="invalid-feedback">{errors.lastName}</div>}
-              </div>
-
-              <div className="form-group">
-                <label>Email:</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={email}
-                  onChange={this.handleInputChange.bind(this)}
-                  className={errors.email ? 'form-control is-invalid' : 'form-control'}
-                />
-                {errors.email && <div className="invalid-feedback">{errors.email}</div>}
-              </div>
-
-              <div className="form-group">
-                <label>Phone Number:</label>
-                <input
-                  type="text"
-                  name="phoneNumber"
-                  value={phoneNumber}
-                  onChange={this.handleInputChange.bind(this)}
-                  className={errors.phoneNumber ? 'form-control is-invalid' : 'form-control'}
-                />
-                {errors.phoneNumber && <div className="invalid-feedback">{errors.phoneNumber}</div>}
-              </div>
-
-              {successMessage && <div className="success-message">{successMessage}</div>}
-
-              <button type="submit" className="btn btn-primary">Submit</button>
-            </form>
+  return (
+    <div className="Raju">
+      <div className="row justify-content-center">
+        <div className="col-md-8">
+          <div>
+            <h1>Contact Form</h1>
           </div>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>First Name:</label>
+              <input
+                type="text"
+                name="firstName"
+                value={firstName}
+                onChange={handleInputChange}
+                className={errors.firstName ? 'form-control is-invalid' : 'form-control'}
+              />
+              {errors.firstName && <div className="invalid-feedback">{errors.firstName}</div>}
+            </div>
+
+            <div className="form-group">
+              <label>Last Name:</label>
+              <input
+                type="text"
+                name="lastName"
+                value={lastName}
+                onChange={handleInputChange}
+                className={errors.lastName ? 'form-control is-invalid' : 'form-control'}
+              />
+              {errors.lastName && <div className="invalid-feedback">{errors.lastName}</div>}
+            </div>
+
+            <div className="form-group">
+              <label>Email:</label>
+              <input
+                type="email"
+                name="email"
+                value={email}
+                onChange={handleInputChange}
+                className={errors.email ? 'form-control is-invalid' : 'form-control'}
+              />
+              {errors.email && <div className="invalid-feedback">{errors.email}</div>}
+            </div>
+
+            <div className="form-group">
+              <label>Phone Number:</label>
+              <input
+                type="text"
+                name="phoneNumber"
+                value={phoneNumber}
+                onChange={handleInputChange}
+                className={errors.phoneNumber ? 'form-control is-invalid' : 'form-control'}
+              />
+              {errors.phoneNumber && <div className="invalid-feedback">{errors.phoneNumber}</div>}
+            </div>
+
+            {successMessage && <div className="success-message">{successMessage}</div>}
+
+            <button type="submit" className="btn btn-primary">Submit</button>
+          </form>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default ContactForm;
